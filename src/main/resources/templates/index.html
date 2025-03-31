@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>SP50課題リンク集</title>
+	<style>
+		body {
+			color: dimgray;
+			font-size: 14px;
+		}
+		ol {
+			counter-reset: step;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			line-height: 2.25;
+		}
+		ol li{
+			width: fit-content;
+		}
+		ol li::before {
+			counter-increment: step;
+			content: "Step" counter(step) "：";
+		}
+		ol li:hover {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>SP50課題リンク集</h1>
+	<main>
+		<ol>
+			<li><a href="http://localhost:8080/items" target="_blank">商品一覧画面の作成</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">カテゴリーによる絞り込み検索機能の実装</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">価格による検索機能の実装</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">安い順リンクによる並べ替え機能の実装</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">価格検索の価格の条件の復元</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">商品名による部分一致検索の実装</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">商品名と価格による組み合わせ検索機能の実装</a></li>
+			<li><a href="http://localhost:8080/items" target="_blank">商品名と価格による組み合わせ検索の並べ替え機能の実装</a></li>
+		</ol>
+	</main>
+</body>
+</html>
