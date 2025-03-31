@@ -30,6 +30,7 @@ public class ItemController {
 	public String index(@RequestParam(required = false) Integer categoryId,
 						@RequestParam(required = false) Integer maxPrice,
 						@RequestParam(defaultValue = "") String sort,
+						@RequestParam(defaultValue = "") String keyword,
 						Model model) {
 		// カテゴリリストを取得
 		List<Category> categoryList = categoryRepository.findAll();
@@ -54,10 +55,16 @@ public class ItemController {
 			itemList = itemRepository.findAllByOrderByPriceAsc();
 		}
 		
+		// キーワードによる商品名検索
+		if (!keyword.isEmpty()) {
+			itemList = itemRepository.findByNameLike("%" + keyword + "%");
+		}
+		
 		// 取得したカテゴリリストと商品リストをスコープに登録
 		model.addAttribute("categories", categoryList);
 		model.addAttribute("items", itemList);
 		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("keyword", keyword);
 		
 		// 画面遷移
 		return "items";

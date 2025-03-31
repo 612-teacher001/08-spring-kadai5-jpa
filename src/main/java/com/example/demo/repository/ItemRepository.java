@@ -28,5 +28,19 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findAllByOrderByPriceAsc();
 
+	/**
+	 * 商品名の部分一致検索：SELECT * FROM items WHERE name LIKE ?
+	 * @param keyword 検索キーワード
+	 * @return 商品リスト
+	 */
+	List<Item> findByNameContaining(String keyword);
+
+	/**
+	 * 商品名の部分一致検索：SELECT * FROM items WHERE name LIKE ?
+	 * @param keyword プレースホルダ付き検索キーワード
+	 * @return 商品リスト
+	 */
+	List<Item> findByNameLike(String keyword);
+
 
 }
