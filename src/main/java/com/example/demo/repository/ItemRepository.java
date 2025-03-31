@@ -22,4 +22,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findByPriceLessThanEqual(Integer maxPrice);
 
+	/**
+	 * 価格の昇順に並べ替え：SELECT * FROM items ORDER BY price ASC
+	 * @return 商品リスト
+	 */
+	List<Item> findAllByOrderByPriceAsc();
+
+
 }

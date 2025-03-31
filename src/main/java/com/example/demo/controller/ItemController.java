@@ -29,6 +29,7 @@ public class ItemController {
 	@GetMapping("/items")
 	public String index(@RequestParam(required = false) Integer categoryId,
 						@RequestParam(required = false) Integer maxPrice,
+						@RequestParam(defaultValue = "") String sort,
 						Model model) {
 		// カテゴリリストを取得
 		List<Category> categoryList = categoryRepository.findAll();
@@ -46,6 +47,11 @@ public class ItemController {
 		// 価格上限値以下の商品の検索
 		if (maxPrice != null) {
 			itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+		}
+		
+		// 価格による並べ替え
+		if (sort.equals("priceAsc")) {
+			itemList = itemRepository.findAllByOrderByPriceAsc();
 		}
 		
 		// 取得したカテゴリリストと商品リストをスコープに登録
