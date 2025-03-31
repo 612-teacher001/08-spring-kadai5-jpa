@@ -8,7 +8,7 @@
 	<h1>商品一覧</h1>
 	<div class="ccriteria-form">
 		<form action="/items" method="get">
-			<input type="number" name="maxPrice" />円以下
+			<input type="number" name="maxPrice" th:value="${maxPrice}" />円以下
 			<button>検索</button>
 		</form>
 	</div>

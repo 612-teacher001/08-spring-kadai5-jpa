@@ -57,6 +57,7 @@ public class ItemController {
 		// 取得したカテゴリリストと商品リストをスコープに登録
 		model.addAttribute("categories", categoryList);
 		model.addAttribute("items", itemList);
+		model.addAttribute("maxPrice", maxPrice);
 		
 		// 画面遷移
 		return "items";
