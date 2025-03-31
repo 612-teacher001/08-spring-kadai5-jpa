@@ -28,6 +28,7 @@ public class ItemController {
 	 */
 	@GetMapping("/items")
 	public String index(@RequestParam(required = false) Integer categoryId,
+						@RequestParam(required = false) Integer maxPrice,
 						Model model) {
 		// カテゴリリストを取得
 		List<Category> categoryList = categoryRepository.findAll();
@@ -35,8 +36,13 @@ public class ItemController {
 		// カテゴリIDによって処理を分岐
 		List<Item> itemList = null;
 		if (categoryId == null) {
-			// 全商品検索
-			itemList = itemRepository.findAll();
+			if (maxPrice == null) {
+				// 全商品検索
+				itemList = itemRepository.findAll();
+			} else {
+				// 価格検索
+				itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+			}
 		} else {
 			// カテゴリ検索
 			itemList = itemRepository.findByCategoryId(categoryId);

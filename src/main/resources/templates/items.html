@@ -6,6 +6,10 @@
 </head>
 <body>
 	<h1>商品一覧</h1>
+	<form action="/items" method="get">
+		<input type="number" name="maxPrice" />円以下
+		<button>検索</button>
+	</form>
 	<a href="/items">全商品</a>
 	<a th:each="category:${categories}"
 	   th:href="'/items?categoryId=' + ${category.id}"
