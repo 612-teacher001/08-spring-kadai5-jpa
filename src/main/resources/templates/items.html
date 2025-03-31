@@ -6,15 +6,19 @@
 </head>
 <body>
 	<h1>商品一覧</h1>
-	<form action="/items" method="get">
-		<input type="number" name="maxPrice" />円以下
-		<button>検索</button>
-	</form>
-	<a href="/items">全商品</a>
-	<a th:each="category:${categories}"
-	   th:href="'/items?categoryId=' + ${category.id}"
-	   th:text="${category.name}"
-	   style="margin-right: 5px;"></a>
+	<div class="ccriteria-form">
+		<form action="/items" method="get">
+			<input type="number" name="maxPrice" />円以下
+			<button>検索</button>
+		</form>
+	</div>
+	<div class="criteria-links">
+		<a href="/items">全商品</a>
+		<a th:each="category:${categories}"
+		   th:href="'/items?categoryId=' + ${category.id}"
+		   th:text="${category.name}"
+		   style="margin-right: 5px;"></a>
+	</div>
 	<table border="1">
 		<tr>
 			<th>商品ID</th>

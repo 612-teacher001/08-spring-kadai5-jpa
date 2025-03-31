@@ -36,16 +36,16 @@ public class ItemController {
 		// カテゴリIDによって処理を分岐
 		List<Item> itemList = null;
 		if (categoryId == null) {
-			if (maxPrice == null) {
-				// 全商品検索
-				itemList = itemRepository.findAll();
-			} else {
-				// 価格検索
-				itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
-			}
+			// 全商品検索
+			itemList = itemRepository.findAll();
 		} else {
 			// カテゴリ検索
 			itemList = itemRepository.findByCategoryId(categoryId);
+		}
+		
+		// 価格上限値以下の商品の検索
+		if (maxPrice != null) {
+			itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
 		}
 		
 		// 取得したカテゴリリストと商品リストをスコープに登録
