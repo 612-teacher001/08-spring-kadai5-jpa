@@ -8,20 +8,12 @@
 	<h1>商品一覧</h1>
 	<div class="ccriteria-form">
 		<form action="/items" method="get">
-			商品名：<input type="text" name="keyword" th:value="${keyword}" />
-			<button>検索</button>
-		</form>
-		<form action="/items" method="get">
+			商品名：<input type="text" name="keyword" th:value="${keyword}" /><br />
 			<input type="number" name="maxPrice" th:value="${maxPrice}" />円以下
 			<button>検索</button>
 		</form>
 	</div>
 	<div class="criteria-links">
-		<a href="/items">全商品</a>
-		<a th:each="category:${categories}"
-		   th:href="'/items?categoryId=' + ${category.id}"
-		   th:text="${category.name}"
-		   style="margin-right: 5px;"></a>
 		<a href="/items?sort=priceAsc">安い順</a>
 	</div>
 	<table border="1">
