@@ -14,7 +14,7 @@
 		</form>
 	</div>
 	<div class="criteria-links">
-		<a href="/items?sort=priceAsc">安い順</a>
+		<a th:href="@{/items(keyword=${keyword},maxPrice=${maxPrice},sort='priceAsc')}">安い順</a>
 	</div>
 	<table border="1">
 		<tr>
