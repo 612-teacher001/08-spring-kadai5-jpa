@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.Category;
 import com.example.demo.entity.Item;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ItemRepository;
@@ -32,36 +31,32 @@ public class ItemController {
 						@RequestParam(defaultValue = "") String sort,
 						@RequestParam(defaultValue = "") String keyword,
 						Model model) {
-		// カテゴリリストを取得
-		List<Category> categoryList = categoryRepository.findAll();
 		
 		// カテゴリIDによって処理を分岐
 		List<Item> itemList = null;
-		if (categoryId == null) {
-			// 全商品検索
-			itemList = itemRepository.findAll();
+		
+		// キーワードと価格上限値の複合検索
+		if (keyword.isEmpty()) {
+			// キーワードが送信されない場合
+			if (maxPrice == null) {
+				// 価格上限が送信されない場合
+				itemList = itemRepository.findAll();
+			} else {
+				// 価格上限値が送信される場合
+				itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+			}
 		} else {
-			// カテゴリ検索
-			itemList = itemRepository.findByCategoryId(categoryId);
-		}
-		
-		// 価格上限値以下の商品の検索
-		if (maxPrice != null) {
-			itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
-		}
-		
-		// 価格による並べ替え
-		if (sort.equals("priceAsc")) {
-			itemList = itemRepository.findAllByOrderByPriceAsc();
-		}
-		
-		// キーワードによる商品名検索
-		if (!keyword.isEmpty()) {
-			itemList = itemRepository.findByNameLike("%" + keyword + "%");
+			// キーワードが送信された場合
+			if (maxPrice == null) {
+				// 価格上限が送信されない場合
+				itemList = itemRepository.findByNameLike("%" + keyword + "%");
+			} else {
+				// 価格上限値が送信される場合
+				itemList = itemRepository.findByNameLikeAndPriceLessThanEqual("%" + keyword + "%", maxPrice);
+			}
 		}
 		
 		// 取得したカテゴリリストと商品リストをスコープに登録
-		model.addAttribute("categories", categoryList);
 		model.addAttribute("items", itemList);
 		model.addAttribute("maxPrice", maxPrice);
 		model.addAttribute("keyword", keyword);
