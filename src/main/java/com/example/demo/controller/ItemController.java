@@ -40,19 +40,41 @@ public class ItemController {
 			// キーワードが送信されない場合
 			if (maxPrice == null) {
 				// 価格上限が送信されない場合
-				itemList = itemRepository.findAll();
+				if (sort.isEmpty()) {
+					// 並べ替え指定がない場合
+					itemList = itemRepository.findAll();
+				} else {
+					// 並べ替え指定がある場合
+					itemList = itemRepository.findAllByOrderByPriceAsc();
+				}
 			} else {
 				// 価格上限値が送信される場合
-				itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+				if (sort.isEmpty()) {
+					// 並べ替えが指定されていない場合
+					itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+				} else {
+					// 並べ替えが指定されている場合
+					itemList = itemRepository.findByPriceLessThanEqualOrderByPriceAsc(maxPrice);
+				}
 			}
 		} else {
 			// キーワードが送信された場合
 			if (maxPrice == null) {
 				// 価格上限が送信されない場合
-				itemList = itemRepository.findByNameLike("%" + keyword + "%");
+				if (sort.isEmpty()) {
+					// 並べ替えが指定されていない場合
+					itemList = itemRepository.findByNameLike("%" + keyword + "%");
+				} else {
+					// 並べ替えが指定されている場合
+					itemList = itemRepository.findByNameLikeOrderByPriceAsc("%" + keyword + "%");
+				}
 			} else {
 				// 価格上限値が送信される場合
-				itemList = itemRepository.findByNameLikeAndPriceLessThanEqual("%" + keyword + "%", maxPrice);
+				if (sort.isEmpty()) {
+					itemList = itemRepository.findByNameLikeAndPriceLessThanEqual("%" + keyword + "%", maxPrice);
+				} else {
+					itemList = itemRepository.findByNameLikeAndPriceLessThanEqualOrderByPriceAsc("%" + keyword + "%", maxPrice);
+				}
 			}
 		}
 		

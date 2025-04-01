@@ -51,4 +51,27 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findByNameLikeAndPriceLessThanEqual(String keyword, Integer maxPrice);
 
+	/**
+	 * 価格検索して価格の昇順に並べ替え：SELECT * FROM items WHERE price <= ? ORDER BY price ASC
+	 * @param maxPrice 価格の上限値
+	 * @return 商品リスト
+	 */
+	List<Item> findByPriceLessThanEqualOrderByPriceAsc(Integer maxPrice);
+
+	/**
+	 * 商品名の部分一致検索して価格の昇順に並べ替え：SELECT * FROM items WHERE name LIKE ? ORDER BY price ASC
+	 * @param keyword プレースホルダ付き検索キーワード
+	 * @return 商品リスト
+	 */
+	List<Item> findByNameLikeOrderByPriceAsc(String string);
+
+	/**
+	 * 商品名の部分一致検索かつ価格の上限値以下の商品検索して価格の昇順に並べ替え
+	 * SELECT * FROM items WHERE name LIKE :keyword AND price <= :maxPrice
+	 * @param keyword  検索キーワード
+	 * @param maxPrice 価格上限値
+	 * @return 商品リスト
+	 */
+	List<Item> findByNameLikeAndPriceLessThanEqualOrderByPriceAsc(String string, Integer maxPrice);
+
 }
